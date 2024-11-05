@@ -1,0 +1,52 @@
+//* Prisma schema file
+// File ini digunakan untuk mendefinisikan skema database dengan Prisma ORM
+
+//* Cara Install Prisma : npm install prisma
+// Install Prisma ke dalam proyek agar bisa mengelola database
+
+//* Cara Migration : npx prisma migrate dev --name users
+// Perintah ini digunakan untuk membuat dan menjalankan migrasi
+// --name users adalah nama yang diberikan untuk migrasi tersebut
+
+generator client {
+  provider = "prisma-client-js"
+  // Generator ini akan menghasilkan Prisma Client berbasis JavaScript
+  // Prisma Client adalah alat untuk melakukan query pada database
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  // `datasource` mendefinisikan sumber data untuk Prisma, di sini adalah database MySQL
+  // `url` mengambil variabel lingkungan DATABASE_URL untuk menghubungkan ke database
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  // Field `id` bertipe integer dan akan menjadi primary key (PK)
+  // Menggunakan `autoincrement()` agar nilai `id` meningkat otomatis setiap kali data baru ditambahkan
+
+  name      String?  @db.VarChar(255)
+  // Field `name` bertipe String dengan panjang maksimum 255 karakter
+  // Tanda `?` menunjukkan field ini bersifat opsional (boleh kosong)
+
+  email     String   @unique(map: "email") @db.VarChar(255)
+  // Field `email` bertipe String dan harus unik di setiap entri tabel
+  // Terdapat constraint `@unique` yang diberi nama `email` agar nama constraint di database mudah dikenali
+  // @db.VarChar(255) menetapkan tipe data di database sebagai VARCHAR dengan panjang maksimum 255 karakter
+
+  password  String?  @db.VarChar(255)
+  // Field `password` bertipe String dan bersifat opsional (boleh kosong)
+  // Ditandai sebagai VARCHAR dengan panjang maksimum 255 karakter di database
+
+  createdAt DateTime @default(now())
+  // Field `createdAt` bertipe DateTime dan akan diisi dengan tanggal dan waktu saat data dibuat
+  // Menggunakan `@default(now())` agar field ini otomatis diisi dengan waktu saat data baru ditambahkan
+
+  updatedAt DateTime @updatedAt
+  // Field `updatedAt` bertipe DateTime dan akan diperbarui setiap kali data diubah
+  // Menggunakan `@updatedAt` untuk pembaruan otomatis
+
+  @@map("users") // Menjadikan nama tabel di database menjadi "users"
+  // Map nama model Prisma "User" menjadi nama tabel "users" di database
+}

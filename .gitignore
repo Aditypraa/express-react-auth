@@ -1,0 +1,48 @@
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+
+# Dependency directories
+Backend/node_modules/
+Frontend/node_modules/
+
+# Environment variables
+# Backend/.env
+# Frontend/.env
+
+# OS-specific files
+.DS_Store
+
+# Editor/IDE specific files
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.swp
+
+# Build directories
+Backend/dist/
+Frontend/dist/
+build/
+out/
+
+# Cache folders
+Backend/.cache/
+Frontend/.cache/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Bower dependencies (if used)
+bower_components/
+
+# Yarn logs
+.yarn-integrity
+.yarn-error.log
